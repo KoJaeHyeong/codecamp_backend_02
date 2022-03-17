@@ -48,7 +48,7 @@ function days(month) {
         11: 30,
         12: 31
     }    
-    console.log(obj[month])
+    console.log(obj[month])  // 객체로 설정을 해두면, obj라는 객체 안에 있는 요소를 출력해주면 된다.
 }
 
 
