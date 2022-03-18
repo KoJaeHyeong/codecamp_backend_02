@@ -37,7 +37,7 @@ app.get('/boards', (req, res) => {
  */
 
 
-app.post('/boards', (req, res) => { 
+app.post('/tokens/phone', (req, res) => { 
   // 1. 데이터를 등록하는 로직 => DB에 접속해서 데이터 저장하기
   
   //2. 저장결과 알려주기!!
