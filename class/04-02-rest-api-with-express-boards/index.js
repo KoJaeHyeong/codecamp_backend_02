@@ -19,6 +19,9 @@ app.get('/boards', (req, res) => {
 app.post('/boards', (req, res) => { 
   // 1. 데이터를 등록하는 로직 => DB에 접속해서 데이터 저장하기
   // 프론트엔드로부터 데이터 받아오기
+  // 콘솔로 찍어서 확인 해보기
+  console.log(req.body)
+
 
   //2. 저장결과 알려주기!!
   res.send("등록에 성공하였습니다!!") 
