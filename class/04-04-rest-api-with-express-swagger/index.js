@@ -57,21 +57,6 @@ app.post('/tokens/phone', (req, res) => {
   }
 })
 
-
-// app.get('/boards', (req, res) => { 
-//   res.send('Hello World!22') 
-// })
-
-// app.get('/boards/:id', (req, res) => { 
-//   console.log(req)
-//   res.send('Hello World!22') 
-// })
-
-// app.get('/', (req, res) => { 
-//   console.log(req)
-//   res.send('Hello World!22') 
-// })
-
 app.listen(3001, () => { 
   console.log(`Example app listening on port ${3001}`)
 }) 
