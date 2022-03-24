@@ -1,0 +1,2 @@
+# 파일명 뒤에 mongo는 아무 뜻 없음.
+FROM mongo:latest
