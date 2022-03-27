@@ -1,9 +1,9 @@
-// N개의 자연수가 입력되면 각 자연수를 뒤집은 숫자가 소수인 것을 찾는 문제
+// 문제 : N개의 자연수가 입력되면 각 자연수를 뒤집은 숫자가 소수인 것을 찾는 문제
 
 
 const arr = [32, 55, 62, 20 ,250, 370, 200, 30, 10]
 
-// 소수 판별
+// 소수 판별(함수)
 const isPrime = (num) => {
   if(num === 1) return false
   
@@ -28,7 +28,6 @@ const solution = (arr) => {
       result.push(reverseNum)
     }
   })
-  
   
   return result;
 }
