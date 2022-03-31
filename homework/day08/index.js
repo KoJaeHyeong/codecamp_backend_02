@@ -78,7 +78,7 @@ app.post('/tokens/phone', async (req, res) => {
 
 app.patch('/tokens/phone', async (req, res) => {
   const myphone = req.body.phone
-  let myToken = req.body.token
+  let myToken = req.body.authNumber
 
   if(await Phone.findOne({phone: myphone} && {token: myToken} && {isAuth: false})) {
     await Phone.updateOne({isAuth: false}, {isAuth: true})
