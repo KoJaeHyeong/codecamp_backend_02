@@ -16,21 +16,21 @@ export class Coffee {
 
   @Column()
   @Field(() => Int)
-  saturatedfat: string;
+  saturatedfat: number;
 
   @Column()
   @Field(() => Int)
-  protein: string;
+  protein: number;
 
   @Column()
   @Field(() => Int)
-  salt: string;
+  salt: number;
 
   @Column()
   @Field(() => Int)
-  sugars: string;
+  sugars: number;
 
   @Column()
   @Field(() => Int)
-  Caffeine: string;
+  Caffeine: number;
 }
