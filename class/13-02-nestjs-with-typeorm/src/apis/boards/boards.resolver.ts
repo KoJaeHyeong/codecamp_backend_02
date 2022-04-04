@@ -1,7 +1,7 @@
-import { BoardService } from './board.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { BoardService } from './boards.service';
+import { CreateBoardInput } from './dto/createBoard.input';
 import { Board } from './entities/board.entity';
-import { CreateBoardInput } from './dto/createBoard.unput';
 
 @Resolver()
 export class BoardResolver {
@@ -17,12 +17,12 @@ export class BoardResolver {
     @Args('writer') writer: string,
     @Args('title') title: string,
     @Args('contents') contents: string,
-    @Args('createBoardInput') CreateBoardInput: CreateBoardInput,
+    @Args('createBoardInput') createBoardInput: CreateBoardInput,
   ) {
     console.log(writer);
     console.log(title);
     console.log(contents);
-    console.log(CreateBoardInput);
+    console.log(createBoardInput);
 
     return this.boardService.create();
   }

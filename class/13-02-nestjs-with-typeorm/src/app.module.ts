@@ -1,7 +1,7 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { BoardModule } from './apis/boards/board.module';
+import { BoardModule } from './apis/boards/boards.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Board } from './apis/boards/entities/board.entity';
 // import { AppController } from './app.controller';
@@ -11,7 +11,6 @@ import { Board } from './apis/boards/entities/board.entity';
   imports: [
     BoardModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      // Nestjs 홈페이지 code first 부분 보고 넣어준것
       driver: ApolloDriver,
       autoSchemaFile: 'src/commons/graphql/schema.gql',
     }),

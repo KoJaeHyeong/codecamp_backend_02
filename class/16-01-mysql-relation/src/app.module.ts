@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { BoardModule } from './apis/boards/boards.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Board } from './apis/boards/entities/board.entity';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -18,14 +17,14 @@ import { Board } from './apis/boards/entities/board.entity';
       autoSchemaFile: 'src/commons/graphql/schema.gql',
     }),
     TypeOrmModule.forRoot({
-      //mysql과 연결해주 위해서 TypeOrmModule의 옵션을 설정!
+       //mysql과 연결해주 위해서 TypeOrmModule의 옵션을 설정!
       type: 'mysql',
-      host: 'my-database',
+      host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
-      database: 'mydocker02',
-      entities: [Board],
+      password: 'enffl2423',
+      database: 'myproject02',
+      entities: [__dirname + '/apis/**/*.entity.*'],  // __dirname + '/apis/**/*.entity.*' entity라는 이름이 들어간 파일 모두를 연결해줘!!
       synchronize: true,
       logging: true,
     }),

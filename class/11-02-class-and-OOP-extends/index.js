@@ -12,7 +12,7 @@ class SkyUnit {
 
 class GroundUnit {
     
-    constructor(qqq){ // super(300)의 300이 qqq로 들어간다.
+    constructor(qqq){ // super(300)의 300이 qqq로 들어간다. extend만들었을때만 쓰는 거임.
 
     }
 

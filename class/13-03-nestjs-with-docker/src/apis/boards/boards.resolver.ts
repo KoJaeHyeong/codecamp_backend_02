@@ -1,7 +1,7 @@
-import { BoardService } from './board.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { BoardService } from './boards.service';
+import { CreateBoardInput } from './dto/createBoard.input';
 import { Board } from './entities/board.entity';
-import { CreateBoardInput } from './dto/createBoard.unput';
 
 @Resolver() //어떤 Request를 수신하는지 제어한다.
 export class BoardResolver {
@@ -17,12 +17,12 @@ export class BoardResolver {
     @Args('writer') writer: string, // @Args는 gql에 arguments라고 알려준다는 뜻.
     @Args('title') title: string,
     @Args('contents') contents: string,
-    @Args('createBoardInput') CreateBoardInput: CreateBoardInput,
+    @Args('createBoardInput') createBoardInput: CreateBoardInput,
   ) {
     console.log(writer);
     console.log(title);
     console.log(contents);
-    console.log(CreateBoardInput);
+    console.log(createBoardInput);
 
     return this.boardService.create();
   }
