@@ -1,0 +1,77 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RentHost {
+  id: String!
+  contents: String!
+  isAuth: Boolean!
+  question: String!
+  total_pre: Int!
+  host_nick: String!
+}
+
+type RentTrans {
+  id: String!
+  lists: String!
+  rents: Rent!
+}
+
+type RentFacility {
+  id: String!
+  lists: String!
+  rents: Rent!
+}
+
+type RentLocation {
+  id: String!
+  lists: String!
+  rents: Rent!
+}
+
+type Rent {
+  id: String!
+  name: String!
+  host: String!
+  star_score: Float!
+  pre_score_clean: Float!
+  pre_score_comu: Float!
+  pre_score_checkin: Float!
+  pre_score_exact: Float!
+  pre_score_location: Float!
+  pre_score_satisfy: Float!
+  rent_pre_number: Float!
+  rent_contents: String!
+  rentHost: RentHost!
+  rentFacility: RentFacility!
+  rentTrans: RentTrans!
+  rentLocation: RentLocation!
+}
+
+type Query {
+  fetchRents: [Rent!]!
+  fetchRent(RentId: String!): Rent!
+}
+
+type Mutation {
+  createRent(name: String!, host: String!, star_score: Float!, rent_pre_number: Float!, rent_contents: String!, createRentInput: createRentInput!): Rent!
+  updateRent(rentId: String!, name: String, host: String, star_score: Float, rent_pre_number: Float, rent_contents: String, updateRentInput: updateRentInput!): Rent!
+}
+
+input createRentInput {
+  pre_score_clean: Float!
+  pre_score_comu: Float!
+  pre_score_checkin: Float!
+  pre_score_exact: Float!
+  pre_score_location: Float!
+  pre_score_satisfy: Float!
+}
+
+input updateRentInput {
+  pre_score_clean: Float
+  pre_score_comu: Float
+  pre_score_checkin: Float
+  pre_score_exact: Float
+  pre_score_location: Float
+  pre_score_satisfy: Float
+}
