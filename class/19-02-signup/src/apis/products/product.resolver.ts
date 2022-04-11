@@ -1,5 +1,4 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { throwIfEmpty } from 'rxjs';
 import { createProductInput } from './dto/createProduct.input';
 import { updateProductInput } from './dto/updateProduct.input';
 import { Product } from './entities/product.entity';
