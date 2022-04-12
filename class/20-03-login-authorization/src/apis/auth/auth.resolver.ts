@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 export class AuthResolver {
   constructor(
     private readonly userService: UserService, //
-    private readonly austhService: AuthService,
+    private readonly authService: AuthService,
   ) {}
 
   @Mutation(() => String)
@@ -25,6 +25,6 @@ export class AuthResolver {
     if (!isAuth)
       throw new UnprocessableEntityException('암호 틀렸다~~ 잘 안볼래?');
     // 4. 일치하는 유저가 있으면?! accessToken(=JWT)을 만들어서 프론트엔드에 주기
-    return this.austhService.getAccessToken({ user }); // => JWT , return해서 프론트한테 넘겨줌.
+    return this.authService.getAccessToken({ user }); // => JWT , return해서 프론트한테 넘겨줌.
   }
 }
