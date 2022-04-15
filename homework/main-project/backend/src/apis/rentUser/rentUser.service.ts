@@ -16,20 +16,17 @@ export class RentUserService {
   ) {}
 
   async findAll() {
-    return await this.rentUserRepository.find({
-      relations: ['rent'],
-    });
+    return await this.rentUserRepository.find({});
   }
 
   async findOne({ email }) {
     return await this.rentUserRepository.findOne({
       where: { email },
-      relations: ['rent'],
     });
   }
 
   async create({ createRentUserInput }) {
-    const { rentId, email, ...userInfo } = createRentUserInput;
+    const { email, ...userInfo } = createRentUserInput;
 
     const user = await this.rentUserRepository.findOne({ email });
     if (user) throw new ConflictException('이미 가입했자나!! 정신차려!!');
@@ -37,9 +34,10 @@ export class RentUserService {
     return await this.rentUserRepository.save({
       ...userInfo, // 해쉬패스워드가 같이 들어있다.
       email: email,
-      rent: { id: rentId },
     });
   }
+
+  // createinput 바꿔면서 다시 고치자!
 
   async update({ currentEmail, email, originalPassword, updateRentUserInput }) {
     const rentUser = await this.rentUserRepository.findOne({

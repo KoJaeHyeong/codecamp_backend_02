@@ -40,6 +40,6 @@ export class AuthController {
     @Req() req: Request & IOAuthUser, //
     @Res() res: Response,
   ) {
-    this.authService.socialLogin({ req, res });
+    this.authService.socialLogin1({ req, res });
   }
 }

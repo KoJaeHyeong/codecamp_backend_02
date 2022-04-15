@@ -13,7 +13,4 @@ export class createRentUserInput {
 
   @Field(() => Date)
   birth: Date;
-
-  @Field(() => String)
-  rentId: string;
 }

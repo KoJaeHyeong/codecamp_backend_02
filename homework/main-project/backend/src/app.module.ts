@@ -6,7 +6,9 @@ import { AuthModule } from './apis/auth/auth.module';
 import { RentModule } from './apis/rent/rent.module';
 import { RentCustomerModule } from './apis/rentCustomer/rentCustomer.module';
 import { RentHostModule } from './apis/rentHost/rentHost.module';
+import { RentReservationModule } from './apis/rentReservation/rentReservation.module';
 import { RentUserModule } from './apis/rentUser/rentUser.module';
+
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -14,6 +16,7 @@ import { RentUserModule } from './apis/rentUser/rentUser.module';
   // graphQl에게 얘는 모듈로 쓸거야 라고 말한다.// @는 데코레이터(함수)
   imports: [
     AuthModule,
+    RentReservationModule,
     RentModule,
     RentHostModule,
     RentUserModule,

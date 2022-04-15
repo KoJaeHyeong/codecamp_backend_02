@@ -5,7 +5,7 @@ import {
   DeleteDateColumn,
   ManyToOne,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Float } from '@nestjs/graphql';
 import { Rent } from 'src/apis/rent/entities/rent.entity';
 
 @Entity() // 테이블로 만들어줘
@@ -33,8 +33,4 @@ export class RentUser {
 
   @DeleteDateColumn()
   deleted: Date;
-
-  @ManyToOne(() => Rent) // 유저부분
-  @Field(() => Rent)
-  rent: Rent;
 }

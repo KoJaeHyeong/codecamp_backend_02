@@ -2,6 +2,38 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type RentUser {
+  id: String!
+  email: String!
+  name: String!
+  birth: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type RentExplain {
+  id: String!
+  imageUrl: String!
+  Exist: Boolean!
+  contents: String!
+}
+
+type RentImage {
+  id: String!
+  url: String!
+  isAuth: Boolean!
+}
+
+type RentToknow {
+  id: String!
+  rule: String!
+  health_safty: String!
+  refund_policy: String!
+}
+
 type RentHost {
   id: String!
   contents: String!
@@ -22,30 +54,10 @@ type RentFacility {
   rent: [Rent!]!
 }
 
-type RentExplain {
-  id: String!
-  imageUrl: String!
-  Exist: Boolean!
-  contents: String!
-}
-
 type RentLocation {
   id: String!
   lists: String!
   rent: [Rent!]!
-}
-
-type RentImage {
-  id: String!
-  url: String!
-  isAuth: Boolean!
-}
-
-type RentToknow {
-  id: String!
-  rule: String!
-  health_safty: String!
-  refund_policy: String!
 }
 
 type Rent {
@@ -69,23 +81,25 @@ type Rent {
   rentLocation: [RentLocation!]!
 }
 
-type RentUser {
-  id: String!
-  email: String!
-  name: String!
-  birth: DateTime!
-  rent: Rent!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type RentCustomer {
   id: String!
   contents: String!
   rent: Rent!
+}
+
+type RentReservation {
+  id: String!
+  impUid: String!
+  price: Float!
+  status: POINT_TRANSACTION_STATUS_ENUM!
+  rent: Rent!
+  rentUser: RentUser!
+  createAt: DateTime!
+}
+
+enum POINT_TRANSACTION_STATUS_ENUM {
+  PAYMENT
+  CANCEL
 }
 
 type Query {
@@ -107,6 +121,7 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
+  createRentReservation(impUid: String!, price: Float!, rentId: String!): RentReservation!
   createRent(createRentInput: createRentInput!, createRentScoreInput: createRentScoreInput!): Rent!
   updateRent(rentId: String!, updateRentInput: updateRentInput!, updateRentScoreInput: updateRentScoreInput!): Rent!
   deleteRent(rentId: String!): Boolean!
@@ -203,7 +218,6 @@ input createRentUserInput {
   password: String!
   name: String!
   birth: DateTime!
-  rentId: String!
 }
 
 input updateRentUserInput {
@@ -211,7 +225,6 @@ input updateRentUserInput {
   password: String
   name: String
   birth: DateTime
-  rentId: String
 }
 
 input createRentCustomerInput {
