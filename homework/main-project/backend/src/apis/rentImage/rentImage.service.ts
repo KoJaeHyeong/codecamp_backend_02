@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { OrphanedTypesFactory } from '@nestjs/graphql/dist/schema-builder/factories/orphaned-types.factory';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RentImage } from './entities/rentImage.entity';
@@ -14,30 +13,20 @@ export class RentImageService {
   async create({ rentId, mainUrl, subUrl }) {
     // 배열에 이미지 주소 담기.
     // 메인이미지
-
+    const result = [];
     for (let i = 0; i < mainUrl.length; i++) {
+      result.push(mainUrl[i]);
+
+      const result1 = [];
+      for (let i = 0; i < subUrl.length; i++) {
+        result1.push(subUrl[i]);
+      }
       await this.rentImageRepository.save({
-        mainUrl: mainUrl[i],
+        mainUrl,
+        subUrl,
         rent: { id: rentId },
       });
-      // console.log(mainUrl, '-----------============');
-      // await this.rentImageRepository.save(result); // 행을 통째로 넣는 거기 때문에 객체표현을 지워서 넣는다.
-
-      // console.log(finalImages, '===============');
     }
-
-    // for (let i = 0; i < subUrl.length; i++) {
-    //   const result = this.rentImageRepository.create({
-    //     subUrl: subUrl[i],
-    //     rent: { id: rentId },
-    //   });
-    //   await this.rentImageRepository.save(result); // 행을 통째로 넣는 거기 때문에 객체표현을 지워서 넣는다.
-    //   finalImages.push(result);
-    // }
-    const finalImages = await this.rentImageRepository.findOne({
-      id: rentId,
-    });
-    return finalImages;
   }
 
   async update({ updateRentImageInput }) {

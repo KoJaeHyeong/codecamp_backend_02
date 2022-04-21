@@ -15,12 +15,11 @@ export class RentImageResolver {
     @Args({ name: 'mainUrl', type: () => [String] }) mainUrl: string[],
     @Args({ name: 'subUrl', type: () => [String] }) subUrl: string[],
   ) {
-    const result = await this.rentImageService.create({
+    return await this.rentImageService.create({
       rentId,
-      mainUrl,
-      subUrl,
+      mainUrl: mainUrl,
+      subUrl: subUrl,
     });
-    return result;
   }
 
   @Mutation(() => RentImage)

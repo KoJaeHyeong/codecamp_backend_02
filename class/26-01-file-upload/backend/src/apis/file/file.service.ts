@@ -13,9 +13,9 @@ export class FileService {
   async upload({ files }: IFile) {
     // 객체안을 타입지정 하는 방법(interface), 밑에 file의 createStream을 쓰기위해 타입을 지정해준다.(타입 지정을 해주면 빨라지고, 안전해진다.)
     const storage = new Storage({
-      keyFilename: 'first-project01-347012-e2d0a770085d.json', // 클라우드에서 생성한 키!!
-      projectId: 'first-project01-347012',
-    }).bucket('codecamp-file-storage112');
+      keyFilename: 'GCP 제이슨명', // 클라우드에서 생성한 키!!
+      projectId: 'ID',
+    }).bucket('버킷이름');
     // .file(file.filename); // 프로젝트 아이디에 버킷 저기에 file이라고 받아온 곳에 있는 파일이름을 저장할거야!!(file.filename)
 
     //일단 먼저 다 받기
