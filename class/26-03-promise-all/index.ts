@@ -32,6 +32,7 @@ const fetchData = async () => {
   console.timeEnd('=== 개별 Promise 각각 ===');
 };
 
+// Promise.all 을 썼을 겨우
 const fetchData2 = async () => {
   console.time('=== 한방에 Promise.all ===');
 
