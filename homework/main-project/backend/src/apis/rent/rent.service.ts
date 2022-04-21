@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { RentExplain } from '../rentExplain/entities/rentExplain.entity';
 import { RentFacility } from '../rentFacility/entities/rentFacility.entity';
 import { RentHost } from '../rentHost/entities/rentHost.entity';
-import { RentImage } from '../rentImage/entities/rentImage.entity';
 import { RentToknow } from '../rentToknow/entities/rentToknow.entity';
 import { Rent } from './entities/rent.entity';
 import { RentLocation } from '../rentLoca/entities/rentLocation.entity';
@@ -15,8 +14,6 @@ export class RentService {
   constructor(
     @InjectRepository(Rent)
     private readonly rentRepository: Repository<Rent>,
-    @InjectRepository(RentImage)
-    private readonly rentImageRepository: Repository<RentImage>,
     @InjectRepository(RentToknow)
     private readonly rentToknowRepository: Repository<RentToknow>,
     @InjectRepository(RentExplain)
@@ -33,7 +30,6 @@ export class RentService {
     return await this.rentRepository.find({
       relations: [
         'rentHost',
-        'rentImage',
         'rentToknow',
         'rentExplain',
         'rentFacility',
@@ -47,7 +43,7 @@ export class RentService {
     // 삭제된거포함 조회
     return await this.rentRepository.find({
       withDeleted: true,
-      relations: ['rentHost', 'rentImage', 'rentToknow', 'rentExplain'],
+      relations: ['rentHost', 'rentToknow', 'rentExplain'],
     });
   }
 
@@ -56,7 +52,6 @@ export class RentService {
       where: { id: rentId },
       relations: [
         'rentHost',
-        'rentImage',
         'rentToknow',
         'rentExplain',
         'rentFacility',
@@ -70,7 +65,7 @@ export class RentService {
     return await this.rentRepository.findOne({
       where: { id: rentId },
       withDeleted: true,
-      relations: ['rentHost', 'rentImage', 'rentToknow', 'rentExplain'],
+      relations: ['rentHost', 'rentToknow', 'rentExplain'],
     });
   }
 
@@ -78,7 +73,6 @@ export class RentService {
     // 숙소이미지 등록
     const {
       rentHostId,
-      rentImage,
       rentToknow,
       rentExplain,
       rentFacility,
@@ -86,11 +80,6 @@ export class RentService {
       rentTrans,
       ...rentscore
     } = createRentScoreInput;
-
-    const result = await this.rentImageRepository.save({
-      // rentImage 1:1 관계 데이터 저장
-      ...rentImage,
-    });
 
     const result2 = await this.rentToknowRepository.save({
       ...rentToknow,
@@ -165,7 +154,6 @@ export class RentService {
       ...createRentInput,
       ...rentscore,
       rentHost: { id: rentHostId },
-      rentImage: result,
       rentToknow: result2,
       rentExplain: result3,
       rentFacility: result4,

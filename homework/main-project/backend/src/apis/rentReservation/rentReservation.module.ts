@@ -5,6 +5,7 @@ import { RentReservationResolver } from './rentReservation.resolver';
 import { RentReservationService } from './rentReservation.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Rent } from '../rent/entities/rent.entity';
+import { IamportService } from '../iamport/iamport.service';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { Rent } from '../rent/entities/rent.entity';
   providers: [
     RentReservationResolver, //
     RentReservationService,
+    IamportService,
   ],
 })
 export class RentReservationModule {}

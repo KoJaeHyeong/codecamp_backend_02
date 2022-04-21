@@ -16,15 +16,8 @@ scalar DateTime
 
 type RentExplain {
   id: String!
-  imageUrl: String!
-  Exist: Boolean!
-  contents: String!
-}
-
-type RentImage {
-  id: String!
-  url: String!
-  isAuth: Boolean!
+  makedUp: String!
+  explain: String!
 }
 
 type RentToknow {
@@ -73,7 +66,6 @@ type Rent {
   rent_pre_number: Float!
   rent_contents: String!
   rentExplain: RentExplain!
-  rentImage: RentImage!
   rentToknow: RentToknow!
   rentHost: RentHost!
   rentFacility: RentFacility!
@@ -87,9 +79,16 @@ type RentCustomer {
   rent: Rent!
 }
 
+type RentImage {
+  id: String!
+  mainUrl: [String!]!
+  subUrl: [String!]
+  rent: Rent!
+}
+
 type RentReservation {
   id: String!
-  impUid: String!
+  imp_uid: String!
   price: Float!
   status: POINT_TRANSACTION_STATUS_ENUM!
   rent: Rent!
@@ -121,7 +120,9 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): String!
   restoreAccessToken: String!
-  createRentReservation(impUid: String!, price: Float!, rentId: String!): RentReservation!
+  uploadFile(files: [Upload!]!): [String!]!
+  createRentReservation(imp_uid: String!, price: Float!, rentId: String!): RentReservation!
+  cancelRentReservation(imp_uid: String!, rentId: String!): RentReservation!
   createRent(createRentInput: createRentInput!, createRentScoreInput: createRentScoreInput!): Rent!
   updateRent(rentId: String!, updateRentInput: updateRentInput!, updateRentScoreInput: updateRentScoreInput!): Rent!
   deleteRent(rentId: String!): Boolean!
@@ -130,11 +131,16 @@ type Mutation {
   updateRentHost(rentHostId: String!, updateRentHostInput: updateRentHostInput!): RentHost!
   deleteRentHost(rentHostId: String!): Boolean!
   restoreOneRentHost(rentHostId: String!): Boolean!
+  createRentImage(rentId: String!, mainUrl: [String!]!, subUrl: [String!]!): RentImage!
+  updateRentImage(updateRentImageInput: updateRentImageInput!): RentImage!
   createRentUser(createUserInput: createRentUserInput!): RentUser!
   updateRentUser(email: String!, originalPassword: String!, updateRentUserInput: updateRentUserInput!): RentUser!
   deleteRentUser(email: String!): Boolean!
   createRentCustomer(createRentCustomerInput: createRentCustomerInput!): RentCustomer!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 input createRentInput {
   house_name: String!
@@ -151,17 +157,11 @@ input createRentScoreInput {
   pre_score_location: Float!
   pre_score_satisfy: Float!
   rentHostId: String!
-  rentImage: RentImageInput!
   rentToknow: RentToknowInput!
   rentExplain: RentExplainInput!
   rentFacility: [String!]!
   rentLocation: [String!]!
   rentTrans: [String!]!
-}
-
-input RentImageInput {
-  url: String!
-  isAuth: Boolean!
 }
 
 input RentToknowInput {
@@ -171,9 +171,8 @@ input RentToknowInput {
 }
 
 input RentExplainInput {
-  imageUrl: String!
-  Exist: Boolean!
-  contents: String!
+  makedUp: String!
+  explain: String!
 }
 
 input updateRentInput {
@@ -191,7 +190,6 @@ input updateRentScoreInput {
   pre_score_location: Float
   pre_score_satisfy: Float
   rentHostId: String
-  rentImage: RentImageInput
   rentToknow: RentToknowInput
   rentExplain: RentExplainInput
   rentFacility: [String!]
@@ -211,6 +209,12 @@ input updateRentHostInput {
   contents: String
   total_pre: Int
   host_nick: String
+}
+
+input updateRentImageInput {
+  mainUrl: [String!]
+  subUrl: [String!]
+  rentId: String
 }
 
 input createRentUserInput {

@@ -1,6 +1,5 @@
 import { Field, Float, InputType } from '@nestjs/graphql';
 import { RentExplainInput } from 'src/apis/rentExplain/dto/rentExplain.input';
-import { RentImageInput } from 'src/apis/rentImage/dto/rentImage.input';
 import { RentToknowInput } from 'src/apis/rentToknow/dto/rentToknow.input';
 
 @InputType() // inputtype으로 쓰기위해서 데코레이터 설정!!
@@ -25,9 +24,6 @@ export class createRentScoreInput {
 
   @Field(() => String)
   rentHostId: string;
-
-  @Field(() => RentImageInput)
-  rentImage: RentImageInput;
 
   @Field(() => RentToknowInput)
   rentToknow: RentToknowInput;

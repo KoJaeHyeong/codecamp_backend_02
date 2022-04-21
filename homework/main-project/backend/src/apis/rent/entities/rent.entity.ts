@@ -15,7 +15,6 @@ import { RentFacility } from 'src/apis/rentFacility/entities/rentFacility.entity
 import { RentExplain } from 'src/apis/rentExplain/entities/rentExplain.entity';
 import { RentLocation } from 'src/apis/rentLoca/entities/rentLocation.entity';
 import { Field, ObjectType, Float } from '@nestjs/graphql';
-import { RentImage } from 'src/apis/rentImage/entities/rentImage.entity';
 import { RentToknow } from 'src/apis/rentToknow/entities/rentToknow.entity';
 
 @Entity() // 테이블로 만들어줘
@@ -72,11 +71,6 @@ export class Rent {
   @OneToOne(() => RentExplain)
   @Field(() => RentExplain)
   rentExplain: RentExplain;
-
-  @JoinColumn() // 메인이미지
-  @OneToOne(() => RentImage)
-  @Field(() => RentImage)
-  rentImage: RentImage;
 
   @JoinColumn() // 알아두어야할 사항
   @OneToOne(() => RentToknow)

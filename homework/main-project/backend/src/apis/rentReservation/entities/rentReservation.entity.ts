@@ -29,7 +29,7 @@ export class RentReservation {
 
   @Column()
   @Field(() => String)
-  impUid: string;
+  imp_uid: string;
 
   @Column()
   @Field(() => Float)

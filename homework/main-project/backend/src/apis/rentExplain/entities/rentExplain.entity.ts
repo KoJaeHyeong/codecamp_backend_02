@@ -13,17 +13,13 @@ export class RentExplain {
   @Field(() => String)
   id: string;
 
-  @Column()
+  @Column() // 구성
   @Field(() => String)
-  imageUrl: string;
-
-  @Column({ default: false })
-  @Field(() => Boolean)
-  Exist: boolean;
+  makedUp: string;
 
   @Column()
   @Field(() => String)
-  contents: string;
+  explain: string;
 
   @DeleteDateColumn()
   deleted: Date;

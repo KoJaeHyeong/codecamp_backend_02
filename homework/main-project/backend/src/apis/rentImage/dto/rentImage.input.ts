@@ -1,9 +1,13 @@
-import { InputType, OmitType } from '@nestjs/graphql';
-import { RentImage } from '../entities/rentImage.entity';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class RentImageInput extends OmitType(
-  RentImage, //
-  ['id'],
-  InputType,
-) {}
+export class RentImageInput {
+  @Field(() => [String])
+  mainUrl: string[];
+
+  @Field(() => [String], { nullable: true })
+  subUrl: string[];
+
+  @Field(() => String)
+  rentId: string;
+}
