@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  api-gateway:
+    image: nginx:latest
+    volumes:
+      - ./api-gateway/default.conf:/etc/nginx/conf.d/default.conf # 기본 폴더
+    ports:
+      - 80:80 # 기본포트(nginx)
+
+  auth-service:
+    build:
+      context: ./services/auth
+      dockerfile: Dockerfile
+    volumes:
+      - ./services/auth/src:/auth-service/src
+
+  stock-service:
+    build:
+      context: ./services/stock
+      dockerfile: Dockerfile
