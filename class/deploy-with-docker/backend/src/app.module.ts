@@ -32,11 +32,11 @@ import { FileModule } from './apis/file/file.module';
     TypeOrmModule.forRoot({
       //mysql과 연결해주 위해서 TypeOrmModule의 옵션을 설정!
       type: 'mysql',
-      host: 'localhost',
+      host: 'my-database',
       port: 3306,
       username: 'root',
-      password: 'enffl2423',
-      database: 'myproject02',
+      password: 'root',
+      database: 'mydocker02',
       entities: [__dirname + '/apis/**/*.entity.*'], // __dirname + '/apis/**/*.entity.*' entity라는 이름이 들어간 파일 모두를 연결해줘!!
       synchronize: true,
       logging: true,
