@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>결제페이지</title>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- jQuery -->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-1.12.4.min.js"
+    ></script>
+    <!-- iamport.payment.js -->
+    <script
+      type="text/javascript"
+      src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"
+    ></script>
+    <script>
+      function requestPay() {
+        const myAmount = document.getElementById("qqq").value; // text value값 받아오는 dom
+
+        const IMP = window.IMP; // IMP라는 애를 라이브러리를 다운받으면 window에 들어간다는 뜻!(doc에 있는 스크립트 추가!)
+        IMP.init("imp47402041"); // 가맹점 식별코드 넣는 자리!(관리자 모드 콘솔)
+        // IMP.request_pay(param, callback) 결제창 호출
+        IMP.request_pay(
+          {
+            // param
+            pg: "html5_inicis",
+            pay_method: "card",
+            // merchant_uid: "ORD20180131-0000011", // 상품아이디, 주석처리해서 안적으면, PG사에서 자동으로 발급해줌.
+            name: "옆집 강아지",
+            amount: myAmount, //가격
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181",
+          },
+          function (rsp) {
+            // callback
+            if (rsp.success) {
+              // ...,
+              // 결제 성공 시 로직,
+              // ...
+              console.log(rsp); // rsp에 뭐가 들어있는지 확인 작업!!
+              const data = axios.post(
+                "http://localhost:3000/graphql",
+                {
+                  query: `
+                    mutation {
+                      createPointTransaction(impUid: "${rsp.Imp_uid}", amount: ${rsp.paid_amount}){
+                        id
+                      }
+                    }
+                  `,
+                },
+                {
+                  headers: {
+                    authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtvamFlMjQyM0BuYXZlci5jb20iLCJzdWIiOiJkNTNlMmRhYy1jZmQ3LTQ2YjctOTRmNC04MGM4ODFmNmRhZmUiLCJpYXQiOjE2NDk5MzUzMTQsImV4cCI6MTY0OTkzODkxNH0.aCP_-HwvYXBbpudk6u6CJ5B9_hRvCanJ8_rY-D50Jtk",
+                  },
+                }
+              );
+              console.log(data);
+            } else {
+              // ...,
+              // 결제 실패 시 로직,
+              // ...
+              alert("결제 실패!! 메롱메롱");
+            }
+          }
+        );
+      }
+    </script>
+  </head>
+  <body>
+    결제할금액: <input type="text" id="qqq" />
+    <button onclick="requestPay()">결제하기</button>
+  </body>
+</html>
