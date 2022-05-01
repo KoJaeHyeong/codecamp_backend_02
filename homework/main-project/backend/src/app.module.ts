@@ -1,5 +1,5 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './apis/auth/auth.module';
@@ -10,6 +10,8 @@ import { RentImageModule } from './apis/rentImage/rentImage.module';
 import { RentReservationModule } from './apis/rentReservation/rentReservation.module';
 import { RentUserModule } from './apis/rentUser/rentUser.module';
 import { FileModule } from './apis/file/file.module';
+import type { RedisClientOptions } from 'redis';
+import * as redisStore from 'cache-manager-redis-store';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -43,6 +45,11 @@ import { FileModule } from './apis/file/file.module';
       entities: [__dirname + '/apis/**/*.entity.*'], // __dirname + '/apis/**/*.entity.*' entity라는 이름이 들어간 파일 모두를 연결해줘!!
       synchronize: true,
       logging: true,
+    }),
+    CacheModule.register<RedisClientOptions>({
+      store: redisStore,
+      url: 'redis://my-redis:6379',
+      isGlobal: true,
     }),
   ],
   // controllers: [AppController],

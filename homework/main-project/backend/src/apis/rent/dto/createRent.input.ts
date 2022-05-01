@@ -6,6 +6,9 @@ export class createRentInput {
   house_name: string;
 
   @Field(() => Float)
+  price: number;
+
+  @Field(() => Float)
   star_score: number;
 
   @Field(() => Float)

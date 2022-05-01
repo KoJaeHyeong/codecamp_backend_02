@@ -6,8 +6,8 @@ import { Strategy } from 'passport-kakao';
 export class JwtKakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
   constructor() {
     super({
-      clientID: '68a918cda385aa98790a0b959e3b1ccb', // restApi 키
-      clientSecret: 'i4KnUQDGpxvybdJPJHfyUxTy3MsDfhNc',
+      clientID: process.env.KAKAO_REST_ID, // restApi 키
+      clientSecret: process.env.KAKAO_SECRET_KEY,
       callbackURL: 'http://localhost:3000/login/kakao',
     });
   }

@@ -5,6 +5,8 @@ import {
   ManyToMany,
   JoinTable,
   DeleteDateColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
   OneToOne,
   JoinColumn,
 } from 'typeorm';
@@ -27,6 +29,10 @@ export class Rent {
   @Column()
   @Field(() => String)
   house_name: string;
+
+  @Column('float')
+  @Field(() => Float)
+  price: number;
 
   @Column('float')
   @Field(() => Float)
@@ -64,8 +70,14 @@ export class Rent {
   @Field(() => String)
   rent_contents: string;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
   @DeleteDateColumn()
-  deleted: Date;
+  deletedAt: Date;
 
   @JoinColumn() // 숙소설명
   @OneToOne(() => RentExplain)

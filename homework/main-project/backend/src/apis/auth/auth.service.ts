@@ -14,7 +14,7 @@ export class AuthService {
     const refreshToken = this.jwtService.sign(
       // 쿠키에 저장 할것이기 때문에 변수를 지정하여 쿠키 설정 할 곳에 매개변수로 넣어준다.
       { email: user.email, sub: user.id },
-      { secret: 'myRefreshKey', expiresIn: '2w' },
+      { secret: process.env.REFRESH_TOKEN_KEY, expiresIn: '2w' },
     );
 
     // 쿠키 저장 설정
@@ -24,7 +24,7 @@ export class AuthService {
   getAccessToken({ user }) {
     return this.jwtService.sign(
       { email: user.email, sub: user.id },
-      { secret: 'myAccessKey', expiresIn: '1h' }, // 테스트 하려고  15s로 해놓음,, 나중에 바꿔놓자
+      { secret: process.env.ACCESS_TOKEN_KEY, expiresIn: '1h' }, // 테스트 하려고  15s로 해놓음,, 나중에 바꿔놓자
     );
   }
 
@@ -52,6 +52,7 @@ export class AuthService {
     );
   }
 
+  // 4. 소셜로그인
   async socialLogin1({ req, res }) {
     // 1.가입확인
     let user = await this.rentUserService.findOne({ email: req.user.email });

@@ -9,6 +9,7 @@ import { RentExplain } from '../rentExplain/entities/rentExplain.entity';
 import { RentFacility } from '../rentFacility/entities/rentFacility.entity';
 import { RentLocation } from '../rentLoca/entities/rentLocation.entity';
 import { RentTrans } from '../rentTrans/entities/rentTrans.entity';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 @Module({
   imports: [
@@ -21,6 +22,9 @@ import { RentTrans } from '../rentTrans/entities/rentTrans.entity';
       RentLocation,
       RentTrans,
     ]),
+    ElasticsearchModule.register({
+      node: 'http://elasticsearch:9200',
+    }),
   ],
   providers: [
     RentResolver, //

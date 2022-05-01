@@ -13,20 +13,19 @@ export class RentImageService {
   async create({ rentId, mainUrl, subUrl }) {
     // 배열에 이미지 주소 담기.
     // 메인이미지
-    const result = [];
-    for (let i = 0; i < mainUrl.length; i++) {
-      result.push(mainUrl[i]);
-
-      const result1 = [];
-      for (let i = 0; i < subUrl.length; i++) {
-        result1.push(subUrl[i]);
-      }
-      await this.rentImageRepository.save({
-        mainUrl,
-        subUrl,
-        rent: { id: rentId },
-      });
-    }
+    // const result = [];
+    // for (let i = 0; i < mainUrl.length; i++) {
+    //   result.push(mainUrl[i]);
+    //   const result1 = [];
+    //   for (let i = 0; i < subUrl.length; i++) {
+    //     result1.push(subUrl[i]);
+    //   }
+    //   await this.rentImageRepository.save({
+    //     mainUrl,
+    //     subUrl,
+    //     rent: { id: rentId },
+    //   });
+    // }
   }
 
   async update({ updateRentImageInput }) {

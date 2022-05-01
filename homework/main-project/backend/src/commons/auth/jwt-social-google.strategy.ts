@@ -7,8 +7,8 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor() {
     super({
       clientID:
-        '532535254975-4t24jl7d4f7k9b6e7fe4c998907muh6h.apps.googleusercontent.com',
-      clientSecret: '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',
+        '659437918535-osnnqtvqepv3ccse0koraoc3jrilm0rp.apps.googleusercontent.com',
+      clientSecret: process.env.GOOGLE_OAUTH_KEY,
       callbackURL: 'http://localhost:3000/login/google',
       scope: ['email', 'profile'],
     });

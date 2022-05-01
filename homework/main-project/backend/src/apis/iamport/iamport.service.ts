@@ -12,9 +12,8 @@ export class IamportService {
     // 다른 외부에 API에 요청할 때에는 try, catch로 묶어주면 발생한 error를 잡을 수 있다.
     try {
       const result = await axios.post('https://api.iamport.kr/users/getToken', {
-        imp_key: '0991982179956392', //0991982179956392
-        imp_secret:
-          'e900b5c7d6187e23ba9f44f4b533e0a0566416eb92329cc0fcb1a84b76161164701debec0ef4a4d5', // e900b5c7d6187e23ba9f44f4b533e0a0566416eb92329cc0fcb1a84b76161164701debec0ef4a4d5// 보안을 해야해서 .env를 만들어서 넣어놓자
+        imp_key: process.env.IMP_KEY,
+        imp_secret: process.env.IMP_SECRET,
       });
       console.log(result.data.response.access_token, 'AAAA');
       return result.data.response.access_token;

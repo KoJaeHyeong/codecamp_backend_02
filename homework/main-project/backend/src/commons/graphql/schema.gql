@@ -56,6 +56,7 @@ type RentLocation {
 type Rent {
   id: String!
   house_name: String!
+  price: Float!
   star_score: Float!
   pre_score_clean: Float!
   pre_score_comu: Float!
@@ -102,8 +103,7 @@ enum POINT_TRANSACTION_STATUS_ENUM {
 }
 
 type Query {
-  fetchRents: [Rent!]!
-  fetchRentsWithdeleted: [Rent!]!
+  fetchRents(search: String!): [Rent!]!
   fetchRent(rentId: String!): Rent!
   fetchRentWithdeleted(rentId: String!): Rent!
   fetchRentHosts: [RentHost!]!
@@ -119,6 +119,7 @@ type Query {
 
 type Mutation {
   login(email: String!, password: String!): String!
+  logout: String!
   restoreAccessToken: String!
   uploadFile(files: [Upload!]!): [String!]!
   createRentReservation(imp_uid: String!, price: Float!, rentId: String!): RentReservation!
@@ -144,6 +145,7 @@ scalar Upload
 
 input createRentInput {
   house_name: String!
+  price: Float!
   star_score: Float!
   rent_pre_number: Float!
   rent_contents: String!
@@ -177,6 +179,7 @@ input RentExplainInput {
 
 input updateRentInput {
   house_name: String
+  price: Float
   star_score: Float
   rent_pre_number: Float
   rent_contents: String

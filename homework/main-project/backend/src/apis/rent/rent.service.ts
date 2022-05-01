@@ -39,14 +39,6 @@ export class RentService {
     });
   }
 
-  async WithdeletedfindAll() {
-    // 삭제된거포함 조회
-    return await this.rentRepository.find({
-      withDeleted: true,
-      relations: ['rentHost', 'rentToknow', 'rentExplain'],
-    });
-  }
-
   async findOne({ rentId }) {
     return await this.rentRepository.findOne({
       where: { id: rentId },

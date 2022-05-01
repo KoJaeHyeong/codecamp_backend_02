@@ -5,25 +5,55 @@ import { updateRentInput } from './dto/updateRent.input';
 import { updateRentScoreInput } from './dto/updateRentScore.input';
 import { Rent } from './entities/rent.entity';
 import { RentService } from './rent.service';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER, Inject } from '@nestjs/common';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 @Resolver()
 export class RentResolver {
   constructor(
     private readonly rentService: RentService, //
+
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
+
+    private readonly elasticsearchService: ElasticsearchService,
   ) {}
 
   @Query(() => [Rent])
-  fetchRents() {
-    return this.rentService.findAll();
-  }
+  async fetchRents(
+    @Args('search') search: string, //
+  ) {
+    // redis 조회/등록
+    const srch = await this.cacheManager.get('accomodation');
+    if (srch !== null) {
+      console.log('redis', srch);
+      return srch;
+    } else {
+      // 엘라스틱 서치 부분
+      const elsrch = await this.elasticsearchService.search({
+        index: 'accomodation',
+        query: {
+          match: { house_name: search },
+        },
+      });
+      const result = elsrch['hits']['hits'].map((el) => {
+        return el._source;
+      });
+      console.log(result);
 
-  @Query(() => [Rent])
-  fetchRentsWithdeleted() {
-    return this.rentService.WithdeletedfindAll();
+      await this.cacheManager.set('accomodation', result, {
+        ttl: 30000,
+      });
+
+      return result;
+    }
+
+    // return this.rentService.findAll();
   }
 
   @Query(() => Rent)
-  fetchRent(
+  async fetchRent(
     @Args('rentId') rentId: string, //
   ) {
     return this.rentService.findOne({ rentId });

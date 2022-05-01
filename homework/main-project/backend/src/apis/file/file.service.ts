@@ -10,8 +10,8 @@ interface IFile {
 export class FileService {
   async upload({ files }: IFile) {
     const storage = new Storage({
-      keyFilename: 'first-project01-347012-e2d0a770085d.json',
-      projectId: 'first-project01-347012',
+      keyFilename: 'gcp-key.json',
+      projectId: 'myproject01-347906',
     }).bucket('main-project01');
 
     const waitedFiled = await Promise.all(files);
