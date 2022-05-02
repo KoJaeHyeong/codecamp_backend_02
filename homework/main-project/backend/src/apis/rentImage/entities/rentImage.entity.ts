@@ -10,12 +10,8 @@ export class RentImage {
   id: string;
 
   @Column()
-  @Field(() => [String])
+  @Field(() => String)
   mainUrl: string;
-
-  @Column({ nullable: true })
-  @Field(() => [String], { nullable: true })
-  subUrl: string;
 
   @ManyToOne(() => Rent)
   @Field(() => Rent)

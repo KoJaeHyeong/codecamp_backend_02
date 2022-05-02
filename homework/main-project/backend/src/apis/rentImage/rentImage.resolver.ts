@@ -13,12 +13,10 @@ export class RentImageResolver {
   async createRentImage(
     @Args('rentId') rentId: string, //
     @Args({ name: 'mainUrl', type: () => [String] }) mainUrl: string[],
-    @Args({ name: 'subUrl', type: () => [String] }) subUrl: string[],
   ) {
     return await this.rentImageService.create({
-      rentId,
       mainUrl: mainUrl,
-      subUrl: subUrl,
+      rentId,
     });
   }
 

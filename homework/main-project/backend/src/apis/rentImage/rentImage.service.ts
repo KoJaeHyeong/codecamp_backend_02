@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Render } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addAbortSignal } from 'stream';
 import { Repository } from 'typeorm';
+import { Rent } from '../rent/entities/rent.entity';
 import { RentImage } from './entities/rentImage.entity';
 
 @Injectable()
@@ -11,23 +12,41 @@ export class RentImageService {
     private readonly rentImageRepository: Repository<RentImage>,
   ) {}
 
-  async create({ rentId, mainUrl, subUrl }) {
+  async create({ rentId, mainUrl }) {
     // 메인이미지, 서브이미지 배열에 담기
     console.log('====================');
-    const result = await mainUrl.map((el) => {
-      return el;
-    });
+    const result = [];
+    for (let i = 0; i < mainUrl.length; i++) {
+      const image = mainUrl[i];
+
+      const image1 = await this.rentImageRepository.findOne({
+        mainUrl: image,
+        rent: {
+          id: rentId,
+        },
+      });
+
+      if (image1) {
+        result.push(image1);
+      } else {
+        const image2 = await this.rentImageRepository.save({
+          mainUrl: image,
+          rent: {
+            id: rentId,
+          },
+        });
+        result.push(image2);
+      }
+    }
     console.log(result, 'AAA');
 
-    const result2 = await subUrl.map((el) => {
-      return el;
-    });
-    console.log(result2, 'BBB');
-
-    return await this.rentImageRepository.save({
-      mainUrl: result,
-      subUrl: result2,
-      rent: { id: rentId },
+    return await this.rentImageRepository.findOne({
+      where: {
+        rent: {
+          id: rentId,
+        },
+      },
+      relations: ['rent'],
     });
   }
 

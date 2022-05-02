@@ -82,8 +82,7 @@ type RentCustomer {
 
 type RentImage {
   id: String!
-  mainUrl: [String!]!
-  subUrl: [String!]
+  mainUrl: String!
   rent: Rent!
 }
 
@@ -132,7 +131,7 @@ type Mutation {
   updateRentHost(rentHostId: String!, updateRentHostInput: updateRentHostInput!): RentHost!
   deleteRentHost(rentHostId: String!): Boolean!
   restoreOneRentHost(rentHostId: String!): Boolean!
-  createRentImage(rentId: String!, mainUrl: [String!]!, subUrl: [String!]!): RentImage!
+  createRentImage(rentId: String!, mainUrl: [String!]!): RentImage!
   updateRentImage(updateRentImageInput: updateRentImageInput!): RentImage!
   createRentUser(createUserInput: createRentUserInput!): RentUser!
   updateRentUser(email: String!, originalPassword: String!, updateRentUserInput: updateRentUserInput!): RentUser!
