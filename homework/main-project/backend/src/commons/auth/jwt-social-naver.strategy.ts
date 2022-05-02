@@ -6,7 +6,7 @@ import { Strategy } from 'passport-naver-v2';
 export class JwtNaverStrategy extends PassportStrategy(Strategy, 'naver') {
   constructor() {
     super({
-      clientID: process.env.NAVE_ID_KEY,
+      clientID: process.env.NAVER_ID_KEY,
       clientSecret: process.env.NAVER_SECRET_KEY,
       callbackURL: 'http://localhost:3000/login/naver',
     });

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { addAbortSignal } from 'stream';
 import { Repository } from 'typeorm';
 import { RentImage } from './entities/rentImage.entity';
 
@@ -11,21 +12,23 @@ export class RentImageService {
   ) {}
 
   async create({ rentId, mainUrl, subUrl }) {
-    // 배열에 이미지 주소 담기.
-    // 메인이미지
-    // const result = [];
-    // for (let i = 0; i < mainUrl.length; i++) {
-    //   result.push(mainUrl[i]);
-    //   const result1 = [];
-    //   for (let i = 0; i < subUrl.length; i++) {
-    //     result1.push(subUrl[i]);
-    //   }
-    //   await this.rentImageRepository.save({
-    //     mainUrl,
-    //     subUrl,
-    //     rent: { id: rentId },
-    //   });
-    // }
+    // 메인이미지, 서브이미지 배열에 담기
+    console.log('====================');
+    const result = await mainUrl.map((el) => {
+      return el;
+    });
+    console.log(result, 'AAA');
+
+    const result2 = await subUrl.map((el) => {
+      return el;
+    });
+    console.log(result2, 'BBB');
+
+    return await this.rentImageRepository.save({
+      mainUrl: result,
+      subUrl: result2,
+      rent: { id: rentId },
+    });
   }
 
   async update({ updateRentImageInput }) {
