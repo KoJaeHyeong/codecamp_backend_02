@@ -12,11 +12,11 @@ services:
     ports:
       - 3000:3000
 
-  my-database:
-    platform: linux/x86_64
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: 'mydocker02'
-      MYSQL_ROOT_PASSWORD: 'root'
-    ports:
-      - 3306:3306
+  # my-database:                   ** GCP에서 SQL을 만들었기 때문에 도커는 이제 사용하지 않는다!! **
+  #   platform: linux/x86_64
+  #   image: mysql:latest
+  #   environment:
+  #     MYSQL_DATABASE: 'mydocker02'
+  #     MYSQL_ROOT_PASSWORD: 'root'
+  #   ports:
+  #     - 3306:3306
