@@ -32,11 +32,11 @@ import { FileModule } from './apis/file/file.module';
     TypeOrmModule.forRoot({
       //mysql과 연결해주 위해서 TypeOrmModule의 옵션을 설정!
       type: 'mysql',
-      host: '10.1.112.3', // SQL만들고 비공개 IP주소!
+      host: 'my-database-02', // SQL만들고 비공개 IP주소!
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'myserver02', // SQL만들고 바꿔줘야ㅕ함.
+      database: 'mypod02', // SQL만들고 바꿔줘야ㅕ함.
       entities: [__dirname + '/apis/**/*.entity.*'], // __dirname + '/apis/**/*.entity.*' entity라는 이름이 들어간 파일 모두를 연결해줘!!
       synchronize: true,
       logging: true,
