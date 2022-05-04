@@ -9,8 +9,8 @@ import { UserModule } from './apis/users/user.module';
 import { AuthModule } from './apis/auth/auth.module';
 import { PointTransactionModule } from './apis/pointTransaction/pointTransaction.module';
 import { FileModule } from './apis/file/file.module';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   // graphQl에게 얘는 모듈로 쓸거야 라고 말한다.// @는 데코레이터(함수)
@@ -32,17 +32,17 @@ import { FileModule } from './apis/file/file.module';
     TypeOrmModule.forRoot({
       //mysql과 연결해주 위해서 TypeOrmModule의 옵션을 설정!
       type: 'mysql',
-      host: 'my-database-02', // SQL만들고 비공개 IP주소!
+      host: '10.1.112.3', // SQL만들고 비공개 IP주소!
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'mypod02', // SQL만들고 바꿔줘야ㅕ함.
+      database: 'myserver02', // SQL 이름
       entities: [__dirname + '/apis/**/*.entity.*'], // __dirname + '/apis/**/*.entity.*' entity라는 이름이 들어간 파일 모두를 연결해줘!!
       synchronize: true,
       logging: true,
     }),
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
