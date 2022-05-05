@@ -3,14 +3,14 @@ steps:
   - name: docker/compose:1.29.0 # 도커 컴포즈 버전
     args:
       - -f
-      - class/deployment-with-docker/backen/docker-compose.prod.yaml
+      - class/deployment-with-docker/backend/docker-compose.prod.yaml
       - build
 
   # 2단계 => docker-compose -f docker-compose.prod.yaml push
   - name: docker/compose:1.29.0
     args:
       - -f
-      - class/deployment-with-docker/backen/docker-compose.prod.yaml
+      - class/deployment-with-docker/backend/docker-compose.prod.yaml
       - push
 
   # 3단계 => kubectl set image deployment/my-backend-02-ch-01 my-backend02-sha256-1=asia.gcr.io/myproject01-347906/my-backend02:7.9
