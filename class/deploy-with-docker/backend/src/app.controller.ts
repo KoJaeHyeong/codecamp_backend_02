@@ -7,6 +7,7 @@ export class AppController {
 
   @Get('/') // Get 방식이라는 뜻
   getHello(): string {
+    console.log('재형이가 세젤짱');
     return this.appService.getHello();
   }
 }
