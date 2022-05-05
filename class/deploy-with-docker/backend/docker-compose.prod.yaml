@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
   my-backend:
-    image: asia.gcr.io/myproject01-347906/my-backend02:7.9 # 새로운 버전 업데이트
+    image: asia.gcr.io/myproject01-347906/my-backend02:8 # 새로운 버전 업데이트
     platform: linux/x86_64 # M1은 이거 넣어야함.
     build:
       context: .
       dockerfile: Dockerfile
     # volumes:
     #   - ./src:/myfolder/src
-    env_file:
-      - ./.env.prod
+    # env_file:
+    #   - ./.env.prod
     ports:
       - 3000:3000
 
