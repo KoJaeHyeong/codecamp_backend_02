@@ -94,11 +94,24 @@
 
 function O_log_n(arr, target) {
   // 여기에 코드를 작성하세요
-  let result = arr.sort((a, b) => {
-    return a - b;
-  });
-  let first = 0;
-  let final = result.length - 1;
+  arr.sort((a, b) => a - b);
+  let [max, min] = [arr.length, 1];
+  for (let i = 0; i < arr.length; i++) {
+    if (target > max || target < min) {
+      return -1;
+    }
+    let half = Math.ceil((max - min) / 2);
+    if (i > 0) {
+      half += min;
+    }
+    if (half === target || target === max) {
+      return i + 1;
+    } else if (half > target) {
+      max = half;
+    } else if (half < target) {
+      min = half;
+    }
+  }
 }
 
 module.exports = O_log_n;
