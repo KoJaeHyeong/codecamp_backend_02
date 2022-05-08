@@ -15,6 +15,10 @@ export class RentHost {
 
   @Column()
   @Field(() => String)
+  email: string;
+
+  @Column()
+  @Field(() => String)
   contents: string;
 
   @Column()
@@ -31,4 +35,7 @@ export class RentHost {
 
   @DeleteDateColumn()
   deleted: Date;
+
+  @DeleteDateColumn()
+  updated: Date;
 }

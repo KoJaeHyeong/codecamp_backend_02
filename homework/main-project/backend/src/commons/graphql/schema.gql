@@ -29,6 +29,7 @@ type RentToknow {
 
 type RentHost {
   id: String!
+  email: String!
   contents: String!
   isAuth: Boolean!
   total_pre: Int!
@@ -76,6 +77,7 @@ type Rent {
 
 type RentCustomer {
   id: String!
+  email: String!
   contents: String!
   rent: Rent!
 }
@@ -106,9 +108,7 @@ type Query {
   fetchRent(rentId: String!): Rent!
   fetchRentWithdeleted(rentId: String!): Rent!
   fetchRentHosts: [RentHost!]!
-  fetchRentHostsWithdeleted: [RentHost!]!
   fetchRentHost(rentHostId: String!): RentHost!
-  fetchRentHostWithdeleted(rentHostId: String!): RentHost!
   fetchRentUsers: [RentUser!]!
   fetchRentUser(email: String!): RentUser!
   fetchUser: String!
@@ -127,7 +127,7 @@ type Mutation {
   updateRent(rentId: String!, updateRentInput: updateRentInput!, updateRentScoreInput: updateRentScoreInput!): Rent!
   deleteRent(rentId: String!): Boolean!
   restoreOneRent(rentId: String!): Boolean!
-  createRentHost(createRentHostInput: createRentHostInput!): RentHost!
+  createRentHost(email: String!, createRentHostInput: createRentHostInput!): RentHost!
   updateRentHost(rentHostId: String!, updateRentHostInput: updateRentHostInput!): RentHost!
   deleteRentHost(rentHostId: String!): Boolean!
   restoreOneRentHost(rentHostId: String!): Boolean!
@@ -136,7 +136,9 @@ type Mutation {
   createRentUser(createUserInput: createRentUserInput!): RentUser!
   updateRentUser(email: String!, originalPassword: String!, updateRentUserInput: updateRentUserInput!): RentUser!
   deleteRentUser(email: String!): Boolean!
-  createRentCustomer(createRentCustomerInput: createRentCustomerInput!): RentCustomer!
+  createRentCustomer(email: String!, createRentCustomerInput: createRentCustomerInput!): RentCustomer!
+  updateRentCustomer(updateRentCustomerInput: updateRentCustomerInput!): RentCustomer!
+  deleteRentCustomer(email: String!): Boolean!
 }
 
 """The `Upload` scalar type represents a file upload."""
@@ -234,6 +236,11 @@ input updateRentUserInput {
 }
 
 input createRentCustomerInput {
-  contents: String!
   rentId: String!
+  contents: String!
+}
+
+input updateRentCustomerInput {
+  rentId: String
+  contents: String
 }

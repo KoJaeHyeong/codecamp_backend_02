@@ -3,8 +3,8 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class createRentCustomerInput {
   @Field(() => String)
-  contents: string;
+  rentId: string;
 
   @Field(() => String)
-  rentId: string;
+  contents: string;
 }

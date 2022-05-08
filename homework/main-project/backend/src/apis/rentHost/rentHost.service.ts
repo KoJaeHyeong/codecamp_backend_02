@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RentHost } from './entities/rentHost.entity';
@@ -14,28 +14,21 @@ export class RentHostService {
     return await this.rentHostRepository.find({});
   }
 
-  async findAllwithdeleted() {
-    return await this.rentHostRepository.find({
-      withDeleted: true,
-    });
-  }
-
   async findOne({ rentHostId }) {
     return await this.rentHostRepository.findOne({
-      withDeleted: true,
+      id: rentHostId,
     });
   }
 
-  async withDeletedfindOne({ rentHostId }) {
-    return await this.rentHostRepository.findOne({
-      where: { id: rentHostId },
-      withDeleted: true,
+  async create({ email, createRentHostInput, currentEmail }) {
+    const user = await this.rentHostRepository.findOne({
+      where: { email: currentEmail }, // 이미 숙소호스트 등록한 유저 에러 던지기
     });
-  }
+    if (user) throw new ConflictException('이미 호스트로 등록되어있습니다.');
 
-  async create({ createRentHostInput }) {
     const result = await this.rentHostRepository.save({
       ...createRentHostInput,
+      email,
     });
 
     return result;

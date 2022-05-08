@@ -6,7 +6,11 @@ import { updateRentScoreInput } from './dto/updateRentScore.input';
 import { Rent } from './entities/rent.entity';
 import { RentService } from './rent.service';
 import { Cache } from 'cache-manager';
-import { CACHE_MANAGER, Inject } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  Inject,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 @Resolver()
@@ -25,7 +29,7 @@ export class RentResolver {
     @Args('search') search: string, //
   ) {
     // redis 조회/등록
-    const srch = await this.cacheManager.get('accomodation');
+    const srch: any = await this.cacheManager.get(search); // search라는 검색값에 데이터 저장
     if (srch !== null) {
       console.log('redis', srch);
       return srch;
@@ -34,18 +38,23 @@ export class RentResolver {
       const elsrch = await this.elasticsearchService.search({
         index: 'accomodation',
         query: {
-          match: { house_name: search },
+          bool: {
+            should: [{ prefix: { house_name: search } }],
+          },
         },
       });
-      const result = elsrch['hits']['hits'].map((el) => {
+      const result = elsrch['hits']['hits'].map((el: any) => {
         return el._source;
       });
-      console.log(result);
+      console.log('elastic', result);
 
-      await this.cacheManager.set('accomodation', result, {
+      await this.cacheManager.set(search, result, {
         ttl: 30000,
       });
 
+      if (result.length === 0) {
+        throw new UnprocessableEntityException('검색기록이 존재하지 않습니다.');
+      }
       return result;
     }
 

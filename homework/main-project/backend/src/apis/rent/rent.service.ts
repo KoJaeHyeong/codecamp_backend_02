@@ -26,18 +26,18 @@ export class RentService {
     private readonly rentTransRepository: Repository<RentTrans>,
   ) {}
 
-  async findAll() {
-    return await this.rentRepository.find({
-      relations: [
-        'rentHost',
-        'rentToknow',
-        'rentExplain',
-        'rentFacility',
-        'rentLocation',
-        'rentTrans',
-      ],
-    });
-  }
+  // async findAll() {  // 등록된 숙소 전체 조회하기
+  //   return await this.rentRepository.find({
+  //     relations: [
+  //       'rentHost',
+  //       'rentToknow',
+  //       'rentExplain',
+  //       'rentFacility',
+  //       'rentLocation',
+  //       'rentTrans',
+  //     ],
+  //   });
+  // }
 
   async findOne({ rentId }) {
     return await this.rentRepository.findOne({
@@ -169,6 +169,7 @@ export class RentService {
   }
 
   async delete({ rentId }) {
+    // 소프트딜리트
     const result = await this.rentRepository.softDelete({ id: rentId });
     return result.affected ? true : false;
   }

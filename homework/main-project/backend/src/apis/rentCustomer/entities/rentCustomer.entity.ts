@@ -17,6 +17,10 @@ export class RentCustomer {
 
   @Column()
   @Field(() => String)
+  email: string;
+
+  @Column()
+  @Field(() => String)
   contents: string;
 
   @ManyToOne(() => Rent)
@@ -24,5 +28,5 @@ export class RentCustomer {
   rent: Rent;
 
   @DeleteDateColumn()
-  deleted: Date;
+  created: Date;
 }
